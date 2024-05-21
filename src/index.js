@@ -4,8 +4,7 @@ const init = () => {
   const dogBreedSection = document.getElementById("dog-breeds")
   let dogBreedList
 
-  const displayDogImgs = (resp) => {
-    const imgArray = resp.message
+  const displayDogImgs = (imgArray) => {
     imgArray.forEach(dogImg => {
       const imgSection = document.getElementById("dog-image-container")
       const imgTag = document.createElement("img")
@@ -48,8 +47,7 @@ const init = () => {
     })
   }
 
-  const displayDogBreeds = (resp) => {
-    const dogBreedObject = resp.message
+  const displayDogBreeds = (dogBreedObject) => {
     for (const dogBreed in dogBreedObject){
       if(dogBreedObject[dogBreed].length >= 1){
         dogBreedObject[dogBreed].map((breedType) => {
@@ -70,7 +68,6 @@ const init = () => {
       }
     }
     dogBreedList = dogBreedSection.children
-    
     changeColor()
     sortDogBreeds()
   }
@@ -78,7 +75,7 @@ const init = () => {
   const handleFetch = (url, cb) => {
     fetch(url)
     .then(resp => resp.json())
-    .then(resp => cb(resp)
+    .then(resp => cb(resp.message)
   )}
 
   handleFetch(dogImgUrl, displayDogImgs)
