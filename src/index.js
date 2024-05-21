@@ -1,11 +1,11 @@
 const dogImgUrl = "https://dog.ceo/api/breeds/image/random/4"
 const breedUrl = "https://dog.ceo/api/breeds/list/all"
 
-const getDogImgs = () => {
-  fetch(dogImgUrl)
-  .then(resp => resp.json())
-  .then(resp => displayDogImgs(resp))
-}
+// const getDogImgs = () => {
+//   fetch(dogImgUrl)
+//   .then(resp => resp.json())
+//   .then(resp => displayDogImgs(resp))
+// }
 
 const displayDogImgs = (resp) => {
   const imgArray = resp.message
@@ -17,35 +17,41 @@ const displayDogImgs = (resp) => {
     });
 }
 
-
-const init = () => {
-  getDogImgs()
-
-  fetch(breedUrl)
-  .then(resp => resp.json())
-  .then(resp => {
-    const dogBreedObject = resp.message
-    for (const dogBreed in dogBreedObject){
-      const dogBreedSection = document.getElementById("dog-breeds")
-      if(dogBreedObject[dogBreed].length >= 1){
-        dogBreedObject[dogBreed].map((breedType) => {
-          let text = ""
-          if (dogBreed === "australian" || dogBreed === "finnish"){
-            text = `${dogBreed} ${breedType}`
-          } else {
-            text = `${breedType} ${dogBreed}`
-          }
-          const li = document.createElement("li")
-          li.textContent = text
-          dogBreedSection.appendChild(li)
-        })
+const displayDogBreeds = (resp) => {
+  const dogBreedObject = resp.message
+  for (const dogBreed in dogBreedObject){
+    const dogBreedSection = document.getElementById("dog-breeds")
+    if(dogBreedObject[dogBreed].length >= 1){
+      dogBreedObject[dogBreed].map((breedType) => {
+        let text = ""
+        if (dogBreed === "australian" || dogBreed === "finnish"){
+          text = `${dogBreed} ${breedType}`
+        } else {
+          text = `${breedType} ${dogBreed}`
+        }
+        const li = document.createElement("li")
+        li.textContent = text         
+        dogBreedSection.appendChild(li)
+       })
       } else {
         const li = document.createElement("li")
         li.textContent = dogBreed
         dogBreedSection.appendChild(li)
       }
-    }
-  })
+  }
+}
+
+const fetchFromApi = (url, cb) => {
+  fetch(url)
+  .then(resp => resp.json())
+  .then(resp => cb(resp))
+}
+
+
+const init = () => {
+  fetchFromApi(dogImgUrl, displayDogImgs)
+  fetchFromApi(breedUrl, displayDogBreeds)
+  
 
 
 }
