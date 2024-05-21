@@ -71,15 +71,15 @@ const displayDogBreeds = (resp) => {
   sortDogBreeds(dogBreedSection, dogBreedList)
 }
 
-const fetchFromApi = (url, cb) => {
+const handleFetch = (url, cb) => {
   fetch(url)
   .then(resp => resp.json())
-  .then(resp => cb(resp))
-}
+  .then(resp => cb(resp)
+)}
 
 const init = () => {
-  fetchFromApi(dogImgUrl, displayDogImgs)
-  fetchFromApi(breedUrl, displayDogBreeds)
+  handleFetch(dogImgUrl, displayDogImgs)
+  handleFetch(breedUrl, displayDogBreeds)
 }
 
 document.addEventListener("DOMContentLoaded", init)
