@@ -1,6 +1,5 @@
 const dogImgUrl = "https://dog.ceo/api/breeds/image/random/4"
 const breedUrl = "https://dog.ceo/api/breeds/list/all"
-const dogBreedSection = document.getElementById("dog-breeds")
 
 const getDogImgs = () => {
   fetch(dogImgUrl)
@@ -26,10 +25,19 @@ const init = () => {
   .then(resp => resp.json())
   .then(resp => {
     const dogBreedObject = resp.message
-    console.log(dogBreedObject)
     for (const dogBreed in dogBreedObject){
+      const dogBreedSection = document.getElementById("dog-breeds")
       if(dogBreedObject[dogBreed].length >= 1){
-        
+        dogBreedObject[dogBreed].map((breed) => {
+          let text = `${breed} ${dogBreed}`
+          const li = document.createElement("li")
+          li.textContent = text
+          dogBreedSection.appendChild(li)
+        })
+      } else {
+        const li = document.createElement("li")
+        li.textContent = dogBreed
+        dogBreedSection.appendChild(li)
       }
     }
   })
