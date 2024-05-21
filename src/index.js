@@ -2,6 +2,7 @@ const init = () => {
   const dogImgUrl = "https://dog.ceo/api/breeds/image/random/4"
   const breedUrl = "https://dog.ceo/api/breeds/list/all"
   const dogBreedSection = document.getElementById("dog-breeds")
+  let dogBreedList
 
   const displayDogImgs = (resp) => {
     const imgArray = resp.message
@@ -15,7 +16,7 @@ const init = () => {
     });
   }
 
-  const changeColor = (dogBreedList) => {
+  const changeColor = () => {
     for (const listItem of dogBreedList){
       listItem.addEventListener("click", () => {
         if (listItem.style.color === "red"){
@@ -27,7 +28,7 @@ const init = () => {
     }
   }
 
-  const sortDogBreeds = (dogBreedList) => {
+  const sortDogBreeds = () => {
     const sortDropdown = document.getElementById("breed-dropdown") 
     const originalList = dogBreedSection.innerHTML
     sortDropdown.addEventListener("click", (event) => {
@@ -68,11 +69,10 @@ const init = () => {
         dogBreedSection.appendChild(li)
       }
     }
-
-    const dogBreedList = dogBreedSection.children
+    dogBreedList = dogBreedSection.children
     
-    changeColor(dogBreedList)
-    sortDogBreeds(dogBreedList)
+    changeColor()
+    sortDogBreeds()
   }
 
   const handleFetch = (url, cb) => {
@@ -83,6 +83,7 @@ const init = () => {
 
   handleFetch(dogImgUrl, displayDogImgs)
   handleFetch(breedUrl, displayDogBreeds)
+
 }
 
 document.addEventListener("DOMContentLoaded", init)
