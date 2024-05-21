@@ -25,7 +25,9 @@ const changeColor = (dogBreedList) => {
 
 const sortDogBreeds = (dogBreedSection, dogBreedList) => {
   const sortDropdown = document.getElementById("breed-dropdown") 
+  const originalList = dogBreedSection.innerHTML
   sortDropdown.addEventListener("click", (event) => {
+    dogBreedSection.innerHTML = originalList
     let userOption = event.target.value 
     let sortedList = []
     for (const listItem of dogBreedList){
