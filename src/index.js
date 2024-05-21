@@ -28,8 +28,13 @@ const init = () => {
     for (const dogBreed in dogBreedObject){
       const dogBreedSection = document.getElementById("dog-breeds")
       if(dogBreedObject[dogBreed].length >= 1){
-        dogBreedObject[dogBreed].map((breed) => {
-          let text = `${breed} ${dogBreed}`
+        dogBreedObject[dogBreed].map((breedType) => {
+          let text = ""
+          if (dogBreed === "australian" || dogBreed === "finnish"){
+            text = `${dogBreed} ${breedType}`
+          } else {
+            text = `${breedType} ${dogBreed}`
+          }
           const li = document.createElement("li")
           li.textContent = text
           dogBreedSection.appendChild(li)
