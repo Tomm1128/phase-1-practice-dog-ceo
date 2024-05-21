@@ -9,6 +9,8 @@ const init = () => {
       const imgSection = document.getElementById("dog-image-container")
       const imgTag = document.createElement("img")
       imgTag.src = dogImg
+      imgTag.style.height = "500px"
+      imgTag.style.width = "500px"
       imgSection.appendChild(imgTag)
     });
   }
@@ -37,7 +39,6 @@ const init = () => {
           sortedList.push(listItem)
         }
       }
-      debugger
       dogBreedSection.innerHTML = ""
       sortedList.map((listItem) => {
         dogBreedSection.appendChild(listItem)
