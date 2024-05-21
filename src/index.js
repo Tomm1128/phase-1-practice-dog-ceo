@@ -11,9 +11,39 @@ const displayDogImgs = (resp) => {
   });
 }
 
+const changeColor = (dogBreedList) => {
+  for (const listItem of dogBreedList){
+    listItem.addEventListener("click", () => {
+      if (listItem.style.color === "red"){
+        listItem.style.color = ""
+      } else {
+      listItem.style.color = "red"
+      }
+    })
+  }
+}
+
+const sortDogBreeds = (dogBreedSection, dogBreedList) => {
+  const sortDropdown = document.getElementById("breed-dropdown") 
+  sortDropdown.addEventListener("click", (event) => {
+    let userOption = event.target.value 
+    let sortedList = []
+    for (const listItem of dogBreedList){
+      if(listItem.textContent.charAt(0) === userOption){
+        sortedList.push(listItem)
+      }
+    }
+    dogBreedSection.innerHTML = ""
+    sortedList.map((listItem) => {
+      dogBreedSection.appendChild(listItem)
+    })
+  })
+}
+
 const displayDogBreeds = (resp) => {
   const dogBreedObject = resp.message
   const dogBreedSection = document.getElementById("dog-breeds")
+  const dogBreedList = dogBreedSection.children
   for (const dogBreed in dogBreedObject){
     if(dogBreedObject[dogBreed].length >= 1){
       dogBreedObject[dogBreed].map((breedType) => {
@@ -33,34 +63,9 @@ const displayDogBreeds = (resp) => {
       dogBreedSection.appendChild(li)
     }
   }
-
-  const dogBreedList = dogBreedSection.children
-  for (const listItem of dogBreedList){
-    listItem.addEventListener("click", () => {
-      if (listItem.style.color === "red"){
-        listItem.style.color = ""
-      } else {
-      listItem.style.color = "red"
-      }
-    })
-  }
-
-  const sortDropdown = document.getElementById("breed-dropdown") 
-  sortDropdown.addEventListener("click", (event) => {
-    let userOption = event.target.value 
-    let sortedList = []
-    for (const listItem of dogBreedList){
-      if(listItem.textContent.charAt(0) === userOption){
-        sortedList.push(listItem)
-      }
-    }
-    dogBreedSection.innerHTML = ""
-    sortedList.map((listItem) => {
-      dogBreedSection.appendChild(listItem)
-    })
-  })
-
-
+  
+  changeColor(dogBreedList)
+  sortDogBreeds(dogBreedSection, dogBreedList)
 }
 
 const fetchFromApi = (url, cb) => {
