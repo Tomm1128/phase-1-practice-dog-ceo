@@ -44,6 +44,23 @@ const displayDogBreeds = (resp) => {
       }
     })
   }
+
+  const sortDropdown = document.getElementById("breed-dropdown") 
+  sortDropdown.addEventListener("click", (event) => {
+    let userOption = event.target.value 
+    let sortedList = []
+    for (const listItem of dogBreedList){
+      if(listItem.textContent.charAt(0) === userOption){
+        sortedList.push(listItem)
+      }
+    }
+    dogBreedSection.innerHTML = ""
+    sortedList.map((listItem) => {
+      dogBreedSection.appendChild(listItem)
+    })
+  })
+
+
 }
 
 const fetchFromApi = (url, cb) => {
@@ -56,8 +73,6 @@ const fetchFromApi = (url, cb) => {
 const init = () => {
   fetchFromApi(dogImgUrl, displayDogImgs)
   fetchFromApi(breedUrl, displayDogBreeds)
-  
-
 
 }
 
