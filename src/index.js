@@ -39,6 +39,7 @@ const sortDogBreeds = (dogBreedSection, dogBreedList) => {
     sortedList.map((listItem) => {
       dogBreedSection.appendChild(listItem)
     })
+    changeColor(sortedList)
   })
 }
 
@@ -76,11 +77,9 @@ const fetchFromApi = (url, cb) => {
   .then(resp => cb(resp))
 }
 
-
 const init = () => {
   fetchFromApi(dogImgUrl, displayDogImgs)
   fetchFromApi(breedUrl, displayDogBreeds)
-
 }
 
 document.addEventListener("DOMContentLoaded", init)
